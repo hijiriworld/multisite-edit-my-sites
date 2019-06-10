@@ -6,20 +6,20 @@
  * Version: 1.0.0
  * Author: hijiri
  * Author URI: http://hijiriworld.com/web/
- * Text Domain: hems
+ * Text Domain: hmems
  * Domain Path: /languages
 */
 
 if( ! is_multisite() ) exit; // multisite check
 
-if( ! class_exists( 'HEMS' ) ) :
+if( ! class_exists( 'HMEMS' ) ) :
 
-class HEMS
+class HMEMS
 {
 	function __construct()
 	{
 		
-		define( 'HEMS_DIR', plugin_dir_url( __FILE__ ) );
+		define( 'HMEMS_DIR', plugin_dir_url( __FILE__ ) );
 		
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
@@ -35,15 +35,15 @@ class HEMS
 
 	function load_plugin_textdomain()
 	{
-		load_plugin_textdomain( 'hems', false, basename( dirname( __FILE__ ) ).'/languages/' );
+		load_plugin_textdomain( 'hmems', false, basename( dirname( __FILE__ ) ).'/languages/' );
 	}
 
 	function load_script_css()
 	{
 		if( false !== strpos( $_SERVER[ 'REQUEST_URI' ], 'network/user-edit.php' ) )
 		{
-			wp_enqueue_script( 'hems-js', HEMS_DIR . 'js/script.js', array( 'jquery' ), '1.0', true );
-			wp_enqueue_style( 'hems-css', HEMS_DIR . 'css/style.css', array(), '1.0', null );
+			wp_enqueue_script( 'hmems-js', HMEMS_DIR . 'js/script.js', array( 'jquery' ), '1.0', true );
+			wp_enqueue_style( 'hmems-css', HMEMS_DIR . 'css/style.css', array(), '1.0', null );
 		}
 	}
 
@@ -89,27 +89,27 @@ class HEMS
 		$all_roles = get_editable_roles();
 		?>
 
-		<table class="form-table hems">
+		<table class="form-table hmems">
 			<tr>
 				<th><?php _e( 'My Sites' ); ?></th>
 				<td>
 					<div class="alignleft actions bulkactions">
-						<select name="hems_all_select" id="hems_all_select">
-							<option value="none"><?php _e( 'Change role to...', 'hems' ); ?></option>
+						<select name="hmems_all_select" id="hmems_all_select">
+							<option value="none"><?php _e( 'Change role to...', 'hmems' ); ?></option>
 							<option value="">-</option>
 							<?php foreach( $all_roles as $role => $val ) : ?>
 								<option value="<?php echo $role; ?>"><?php _e( translate_user_role($val['name']) ); ?></option>
 							<?php endforeach; ?>
 						</select>
-						<input type="button" value="Change" name="hems_all_apply" id="hems_all_apply" class="button">							
+						<input type="button" value="<?php _e( 'Change' ); ?>" name="hmems_all_apply" id="hmems_all_apply" class="button">							
 					</div>
 
 					<table class="wp-list-table widefat fixed striped sites">
 						<thead>
 							<tr>
 								<td class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-2"><?php _e( 'Select All' ); ?></label><input id="cb-select-all-2" type="checkbox"></td>
-								<td class="column-sitename"><?php _e( 'Sitename', 'hems' ); ?></td>
-								<td class="column-siturl"><?php _e( 'Siteurl', 'hems' ); ?></td>
+								<td class="column-sitename"><?php _e( 'Sitename', 'hmems' ); ?></td>
+								<td class="column-siturl"><?php _e( 'Siteurl', 'hmems' ); ?></td>
 								<td class="column-role"><?php _e( 'Role' ); ?></td>
 							</tr>
 						</thead>
@@ -120,7 +120,7 @@ class HEMS
 							<tr>
 								<th scope="row" class="check-column">
 									<?php
-										printf( '<input type="checkbox" name="hems_check[%d][blog_id]" id="hems_check_%d" value="%d">',
+										printf( '<input type="checkbox" name="hmems_check[%d][blog_id]" id="hmems_check_%d" value="%d">',
 											$blog['blog_id'],
 											$blog['blog_id'],
 											$blog['blog_id']
@@ -149,8 +149,8 @@ class HEMS
 						<tfoot>
 							<tr>
 								<td class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-2">Select All</label><input id="cb-select-all-2" type="checkbox"></td>
-								<td class="column-sitename"><?php _e( 'Sitename', 'hems' ); ?></td>
-								<td class="column-siturl"><?php _e( 'Siteurl', 'hems' ); ?></td>
+								<td class="column-sitename"><?php _e( 'Sitename', 'hmems' ); ?></td>
+								<td class="column-siturl"><?php _e( 'Siteurl', 'hmems' ); ?></td>
 								<td class="column-role"><?php _e( 'Role' ); ?></td>
 							</tr>
 						</tfoot>
@@ -211,7 +211,7 @@ class HEMS
 	}
 }
 
-$hems = new HEMS;
+$hmems = new HMEMS;
 
 endif; // class_exists check
 ?>

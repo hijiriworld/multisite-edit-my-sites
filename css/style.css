@@ -1,10 +1,10 @@
-.hems .actions {
+.hmems .actions {
 	margin-bottom: 4px;
 }
-.hems table thead td,
-.hems table tfoot td {
+.hmems table thead td,
+.hmems table tfoot td {
 	padding: 8px 10px;
 }
-.hems table tbody td {
+.hmems table tbody td {
 	padding: 4px 10px;
 }
