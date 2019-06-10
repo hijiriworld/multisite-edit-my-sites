@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-06-10 17:49+0900\n"
+"PO-Revision-Date: 2019-06-10 17:53+0900\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: ..\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: multisite-edit-my-sites.php:94
+msgid "My Sites"
+msgstr ""
+
+#: multisite-edit-my-sites.php:98
+msgid "Change role to..."
+msgstr "一括操作"
+
+#: multisite-edit-my-sites.php:104
+msgid "Change"
+msgstr ""
+
+#: multisite-edit-my-sites.php:110
+msgid "Select All"
+msgstr ""
+
+#: multisite-edit-my-sites.php:111 multisite-edit-my-sites.php:152
+msgid "Sitename"
+msgstr "サイト名"
+
+#: multisite-edit-my-sites.php:112 multisite-edit-my-sites.php:153
+msgid "Siteurl"
+msgstr "サイトURL"
+
+#: multisite-edit-my-sites.php:113 multisite-edit-my-sites.php:154
+msgid "Role"
+msgstr ""
