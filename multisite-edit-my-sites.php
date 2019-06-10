@@ -95,7 +95,8 @@ class HEMS
 				<td>
 					<div class="alignleft actions bulkactions">
 						<select name="hems_all_select" id="hems_all_select">
-							<option value=""><?php _e( 'Change role to...', 'hems' ); ?></option>
+							<option value="none"><?php _e( 'Change role to...', 'hems' ); ?></option>
+							<option value="">-</option>
 							<?php foreach( $all_roles as $role => $val ) : ?>
 								<option value="<?php echo $role; ?>"><?php _e( translate_user_role($val['name']) ); ?></option>
 							<?php endforeach; ?>
