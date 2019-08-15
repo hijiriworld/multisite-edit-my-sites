@@ -98,7 +98,7 @@ class HMEMS
 							<option value="none"><?php _e( 'Change role to...', 'hmems' ); ?></option>
 							<option value="">-</option>
 							<?php foreach( $all_roles as $role => $val ) : ?>
-								<option value="<?php echo $role; ?>"><?php _e( translate_user_role($val['name']) ); ?></option>
+								<option value="<?php echo esc_html( $role ); ?>"><?php esc_html_e( translate_user_role( $val['name'] ) ); ?></option>
 							<?php endforeach; ?>
 						</select>
 						<input type="button" value="<?php _e( 'Change' ); ?>" name="hmems_all_apply" id="hmems_all_apply" class="button">							
@@ -121,23 +121,23 @@ class HMEMS
 								<th scope="row" class="check-column">
 									<?php
 										printf( '<input type="checkbox" name="hmems_check[%d][blog_id]" id="hmems_check_%d" value="%d">',
-											$blog['blog_id'],
-											$blog['blog_id'],
-											$blog['blog_id']
+											intval( $blog['blog_id'] ),
+											intval( $blog['blog_id'] ),
+											intval( $blog['blog_id'] )
 										);
 									?>
 								</th>
-								<td><?php echo $blog_details->blogname; ?></td>
-								<td><?php echo $blog_details->siteurl ;?></td>
+								<td><?php echo esc_html( $blog_details->blogname ); ?></td>
+								<td><?php echo esc_url( $blog_details->siteurl );?></td>
 								<td>
-									<select name="users_sites[<?php echo $blog['blog_id']; ?>][role]">
+									<select name="users_sites[<?php echo intval( $blog['blog_id'] ); ?>][role]">
 									<?php $flg = false; ?>
 									<option value="">-</option>
 									<?php foreach( $all_roles as $role => $val ) : ?>
 										<?php if( isset( $my_roles[$blog['blog_id']] ) && $role === $my_roles[$blog['blog_id']] ) : ?>
-											<option value="<?php echo $role; ?>" selected><?php _e( translate_user_role( $val['name'] ) ); ?></option>
+											<option value="<?php echo esc_html( $role ); ?>" selected><?php esc_html_e( translate_user_role( $val['name'] ) ); ?></option>
 										<?php else : ?>
-											<option value="<?php echo $role; ?>"><?php _e( translate_user_role( $val['name'] ) ); ?></option>
+											<option value="<?php echo esc_html( $role ); ?>"><?php esc_html_e( translate_user_role( $val['name'] ) ); ?></option>
 										<?php endif; ?>
 									<?php endforeach; ?>
 									</select>
@@ -165,25 +165,32 @@ class HMEMS
 
 	function profile_update( $user_id, $old_user_data )
 	{
-		if( !is_super_admin() ) return;
-		if( !isset($_POST['users_sites']) || !is_array($_POST['users_sites']) ) return;
-
-		$upd_item = serialize( $_POST['users_sites'] );
+		$all_roles = get_editable_roles();
+		
+		if( !is_super_admin() || !isset($_POST['users_sites']) ) return;
+		
+		$users_sites = $_POST['users_sites'];
+		if( !is_array( $users_sites ) ) return;
+		
+		$upd_item = serialize( $users_sites );
 
 		if( !isset($old_user_data->users_sites) ||
 			( isset( $old_user_data->users_sites ) && $old_user_data->users_sites != $upd_item )
 		) {
-
-			// ログイン時に自動で遷移するサイトIDの更新フラグ（権限があるサイトのうち最もサイトIDが小さいもの）
-			$primary_blog_flg = TRUE;
-
-			foreach( $_POST['users_sites'] as $blog_id => $item ) {
-				if( !isset($item['role'] ) || $item['role'] === '' ){
+			
+			$primary_blog_flg = TRUE; // ログイン時に自動で遷移するサイトIDの更新フラグ（権限があるサイトのうち最もサイトIDが小さいもの）
+			
+			foreach( $users_sites as $blog_id => $item ) {
+				$blog_id = intval( $blog_id );
+				if( !isset( $item['role'] ) || $item['role'] === '' ){
 					remove_user_from_blog( $user_id, $blog_id );
 				} else {
-					add_user_to_blog( $blog_id, $user_id, $item['role'] );
+					$role = sanitize_text_field( $item['role'] );
+					if( !array_key_exists( $role, $all_roles ) ) return;
+					add_user_to_blog( $blog_id, $user_id, $role );
+					
 					if( $primary_blog_flg ){
-						update_user_meta( $user_id,'primary_blog',$blog_id );
+						update_user_meta( $user_id,'primary_blog', $blog_id );
 						$primary_blog_flg = FALSE;
 					}
 				}
