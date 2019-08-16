@@ -18,7 +18,7 @@ For Multisite, Edit the role of all sites for the user from the network user edi
 
 == Screenshots ==
 
-1. Multisite: Network User Edit
+1. Multisite: Network User edit screen.
 
 == Changelog ==
 
